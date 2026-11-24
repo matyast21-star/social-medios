@@ -591,18 +591,28 @@ $("#copyBtn").addEventListener("click", () => {
 })();
 
 
-/* Pantalla de carga: una vez por sesión, se salta con movimiento reducido */
+/* Pantalla de carga: una vez por sesión (#intro la fuerza), se salta con movimiento reducido */
 (function(){
   const box = $("#loader"), v = $("#loaderVideo");
   let seen = false; try { seen = sessionStorage.getItem("sm-intro") === "1"; } catch(e){}
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
   let done = false;
   const close = () => { if(done) return; done = true; box.classList.add("out"); document.body.classList.remove("loading"); v.pause(); try { sessionStorage.setItem("sm-intro","1"); } catch(e){} setTimeout(()=>box.remove(), 700); };
+  if(location.hash === "#intro") seen = false;
   if(seen || reduce){ box.remove(); return; }
   document.body.classList.add("loading");
-  v.addEventListener("ended", close);
-  v.play().catch(()=>setTimeout(close, 1500));
-  setTimeout(close, 9000);
+  /* Dura lo que dura el video: el tiempo cuenta desde que empieza a reproducirse, no desde que carga la página */
+  v.addEventListener("ended", () => setTimeout(close, 300));
+  let capped = false;
+  v.addEventListener("playing", () => {
+    if(capped) return; capped = true;
+    const left = (isFinite(v.duration) ? v.duration - v.currentTime : 6.5) * 1000;
+    setTimeout(close, left + 2500);
+  });
+  const start = () => v.play().catch(() => { v.muted = true; return v.play(); }).catch(() => setTimeout(close, 6500));
+  if(v.readyState >= 3) start(); else { v.addEventListener("canplay", start, {once:true}); v.load(); }
+  box.addEventListener("click", e => { if(!e.target.closest("button") && v.paused) v.play().catch(()=>{}); });
+  setTimeout(close, 20000);
   $("#loaderSkip").addEventListener("click", close);
   $("#loaderSound").addEventListener("click", e => { v.muted = !v.muted; if(!v.muted) v.play().catch(()=>{}); e.target.textContent = v.muted ? "Activar sonido" : "Silenciar"; e.target.setAttribute("aria-pressed", String(!v.muted)); });
 })();

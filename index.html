@@ -190,7 +190,7 @@ input[type=range]{width:100%;accent-color:var(--orange)}
 
 /* Cobertura */
 .cover{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
-.cover svg{width:100%;height:auto;max-width:520px}
+
 .zones{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:14px}
 .zones li{display:grid;grid-template-columns:10.5em 1fr;gap:20px;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:14px}
 .zones b{font-family:var(--display);font-size:26px;text-transform:uppercase;white-space:nowrap}
@@ -265,6 +265,21 @@ footer .wrap{display:grid;gap:30px}
 @media (max-width:560px){.clients{grid-template-columns:1fr}}
 .games{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
 .games span{border:1px solid var(--orange);color:var(--fg);border-radius:999px;padding:7px 14px;font-weight:600;font-size:15px}
+/* Mapa de cobertura */
+.mapbox{display:grid;gap:14px;justify-items:center;min-width:0}
+.maptoggle{display:inline-flex;gap:4px;padding:4px;border:1px solid var(--line);border-radius:999px;background:var(--bg-2)}
+.maptoggle button{font:700 14px/1 var(--body);color:var(--muted);background:transparent;border:0;border-radius:999px;padding:10px 16px;cursor:pointer}
+.maptoggle button[aria-pressed="true"]{background:var(--orange);color:var(--ink-on-orange)}
+#covmap{width:100%;max-width:520px;height:auto;max-height:760px;transition:opacity .25s}
+#covmap.fade{opacity:0}
+.reels{grid-template-columns:repeat(4,1fr)!important}
+.reel.v{padding:0;overflow:hidden;position:relative;aspect-ratio:9/14;justify-content:flex-end}
+.reel.v img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .3s}
+.reel.v:hover img{transform:scale(1.04)}
+.reel.v .meta{position:relative;padding:80px 16px 16px;background:linear-gradient(transparent,rgba(0,0,0,.75) 40%,rgba(0,0,0,.95));display:grid;gap:4px}
+.reel.v .play{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:var(--orange);color:var(--ink-on-orange);display:grid;place-items:center;font-size:14px;z-index:1}
+.reel.wk{background:linear-gradient(160deg,#2a1206,var(--bg-2));justify-content:center;aspect-ratio:9/14}
+@media (max-width:980px){.reels{grid-template-columns:repeat(2,1fr)!important}}
 /* Pantalla de carga */
 .loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
 .loader.out{opacity:0;pointer-events:none}
@@ -481,31 +496,16 @@ body.loading{overflow:hidden}
         <li><b>Litoral Central</b><span>Algarrobo, El Quisco, Cartagena y alrededores.</span></li>
         <li><b>Quinta Región</b><span>Viña del Mar, Valparaíso y comunas cercanas.</span></li>
         <li><b>Santiago</b><span>Eventos en la capital, consulta por traslado.</span></li>
+        <li><b>Sur de Chile</b><span>Viajamos con eventos de empresa, hasta Lautaro en La Araucanía.</span></li>
       </ul>
     </div>
-    <svg viewBox="0 0 420 420" role="img" aria-label="Esquema de cobertura con Casablanca al centro, Quinta Región al norte, Litoral Central al sur y Santiago al este">
-      <path d="M90 10 C70 80 100 120 78 180 C60 240 96 300 70 410" fill="none" stroke="#2b231d" stroke-width="3"/>
-      <text x="22" y="380" fill="#6e6258" font-size="13" font-family="Barlow" transform="rotate(-80 22 380)">OCÉANO PACÍFICO</text>
-      <circle cx="160" cy="210" r="150" fill="none" stroke="#ff5a0a" stroke-opacity=".18" stroke-width="2" stroke-dasharray="4 8"/>
-      <circle cx="160" cy="210" r="90" fill="none" stroke="#ff5a0a" stroke-opacity=".3" stroke-width="2" stroke-dasharray="4 8"/>
-      <g fill="none" stroke="#f6f1ec" stroke-linecap="round" aria-hidden="true">
-        <path d="M160 210 C150 175 132 150 118 110" stroke-width="1.6" stroke-opacity=".55"/>
-        <path d="M160 210 C140 240 120 268 104 300" stroke-width="1.6" stroke-opacity=".55"/>
-        <path d="M118 110 C112 80 100 50 96 18" stroke-width="1" stroke-opacity=".3"/>
-        <path d="M104 300 C120 330 116 360 128 400" stroke-width="1" stroke-opacity=".3"/>
-        <path d="M118 110 C170 95 230 120 330 200" stroke-width="1" stroke-opacity=".28"/>
-        <path d="M330 200 C360 170 380 150 410 140" stroke-width="1" stroke-opacity=".25"/>
-        <path d="M330 200 C350 240 370 270 405 300" stroke-width="1" stroke-opacity=".25"/>
-        <path d="M160 210 C200 250 240 300 300 330" stroke-width=".8" stroke-opacity=".22"/>
-        <path d="M150 196 L176 222 M170 198 L146 224" stroke-width=".8" stroke-opacity=".35"/>
-      </g>
-      <line x1="160" y1="210" x2="330" y2="200" stroke="#ff5a0a" stroke-width="2" stroke-dasharray="2 6"/>
-      <circle cx="118" cy="110" r="9" fill="#f6f1ec"/><text x="134" y="104" fill="#f6f1ec" font-family="Anton" font-size="20">VIÑA · VALPARAÍSO</text>
-      <circle cx="104" cy="300" r="9" fill="#f6f1ec"/><text x="120" y="306" fill="#f6f1ec" font-family="Anton" font-size="20">LITORAL CENTRAL</text>
-      <circle cx="330" cy="200" r="11" fill="#f6f1ec"/><text x="290" y="238" fill="#f6f1ec" font-family="Anton" font-size="20">SANTIAGO</text>
-      <circle cx="160" cy="210" r="18" fill="#ff5a0a"/><circle cx="160" cy="210" r="7" fill="#0c0a09"/>
-      <text x="132" y="254" fill="#ff5a0a" font-family="Anton" font-size="24">CASABLANCA</text>
-    </svg>
+    <div class="mapbox">
+      <div class="maptoggle" role="group" aria-label="Zoom del mapa">
+        <button type="button" data-zoom="near" aria-pressed="true">Zona central</button>
+        <button type="button" data-zoom="far" aria-pressed="false">Hasta La Araucanía</button>
+      </div>
+      <svg id="covmap" role="img" aria-label="Mapa de cobertura: Casablanca al centro, Viña y Valparaíso, Litoral Central y Santiago; viajamos por la Ruta 5 hasta Lautaro, Región de La Araucanía"></svg>
+    </div>
   </div>
 </section>
 
@@ -546,12 +546,17 @@ body.loading{overflow:hidden}
   <div class="wrap">
     <div class="sec-head">
       <div><div class="eyebrow">Eventos reales</div><h2>Míralo en acción</h2></div>
-      <p>Lo último que publicamos. Se abre en Instagram.</p>
+      <p>Videos de eventos reales. Se abren en Instagram.</p><a class="btn btn-ghost" href="https://www.instagram.com/socialmedioscl/" target="_blank" rel="noopener">Ver más en @socialmedioscl</a>
     </div>
     <div class="reels">
-      <a class="reel" href="https://www.instagram.com/soykakorojas/reel/Df_iufihA_5/" target="_blank" rel="noopener"><span class="d">20 nov 2026</span><b>Cumpleaños de 45 en MOOVA</b><span>"Las mejores celebraciones son las que te hacen sentir más."</span></a>
-      <a class="reel" href="https://www.instagram.com/reel/DNy0SPd5E3j/" target="_blank" rel="noopener"><span class="d">MOOVA Studio</span><b>Arriendo de sala y experiencias</b><span>La sala de Casablanca donde celebramos.</span></a>
-      <a class="reel" href="https://www.instagram.com/socialmedioscl/reel/DfWSpv0zHlu/" target="_blank" rel="noopener"><span class="d">4 nov 2026</span><b>Lanzamiento de Wiki-Kubo</b><span>El juego por QR para eventos, creado con Fluva.</span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DRi014CjAQP/" target="_blank" rel="noopener"><img src="img/galeria/sm-kako-animando.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Empresas · 2025</span><b>El Despertar de los Equipos</b><span>KaKo con más de 120 colaboradores de FORMAC.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DOqP7wjDe6b/" target="_blank" rel="noopener"><img src="img/galeria/sm-matrimonio-pista.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Matrimonio</span><b>Pista llena</b><span>Así se vive el baile con Social Medios.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DO_ZCucjV8E/" target="_blank" rel="noopener"><img src="img/galeria/sm-quince-festejada.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">15 años</span><b>Una fiesta de 15</b><span>La festejada y sus amigas en la pista.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DOp-oN1jS8M/" target="_blank" rel="noopener"><img src="img/galeria/sm-empresa-juegos-tipicos.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Fiestas patrias</span><b>Juegos típicos con Rittal</b><span>Celebración dieciochera para el equipo.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DZGY99dzskI/" target="_blank" rel="noopener"><img src="img/galeria/sm-dia-familia-2026.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Comunidad · 2026</span><b>Día de la Familia</b><span>Tejedoras de Sueños, globos y baile.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/socialmedioscl/reel/DZTvBhzsmQI/" target="_blank" rel="noopener"><img src="img/galeria/sm-cumple-grupo.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Cumpleaños</span><b>Cumpleaños con amigas</b><span>Un grupo que no paró de bailar.</span></span></a>
+      <a class="reel v" href="https://www.instagram.com/soykakorojas/reel/Df_iufihA_5/" target="_blank" rel="noopener"><img src="img/galeria/moova-cumple-2.jpg" alt="" loading="lazy"><span class="play" aria-hidden="true">▶</span><span class="meta"><span class="d">Cumpleaños en MOOVA</span><b>Cumpleaños de 45</b><span>"Las mejores celebraciones son las que te hacen sentir más."</span></span></a>
+      <a class="reel wk" href="https://www.instagram.com/socialmedioscl/reel/DfWSpv0zHlu/" target="_blank" rel="noopener"><span class="d">4 nov 2026</span><b>Lanzamiento de Wiki-Kubo</b><span>El juego por QR para eventos, creado con Fluva.</span></a>
     </div>
   </div>
 </section>
@@ -797,6 +802,106 @@ const gstep = dir => { const t=$("#gTrack"); const w=(t.querySelector(".gitem")|
 $("#gPrev").addEventListener("click", () => gstep(-1));
 $("#gNext").addEventListener("click", () => gstep(1));
 renderGallery();
+
+/* Mapa de cobertura dibujado con coordenadas reales (lat, lon) */
+(function(){
+  const svg = $("#covmap"); if(!svg) return;
+  const C = {
+    vina:[-33.02,-71.55], valpo:[-33.05,-71.62], casa:[-33.32,-71.41], algarrobo:[-33.36,-71.67], quisco:[-33.40,-71.70], cartagena:[-33.55,-71.61], sanantonio:[-33.59,-71.61],
+    stgo:[-33.45,-70.66], rancagua:[-34.17,-70.74], curico:[-34.98,-71.24], talca:[-35.43,-71.66], linares:[-35.85,-71.59], chillan:[-36.61,-72.10], conce:[-36.83,-73.05],
+    losangeles:[-37.47,-72.35], victoria:[-38.23,-72.33], lautaro:[-38.53,-72.43], temuco:[-38.74,-72.60], quilpue:[-33.05,-71.44], melipilla:[-33.69,-71.21], talagante:[-33.66,-70.93], colina:[-33.20,-70.67], limache:[-33.00,-71.27]
+  };
+  const COAST = [[-32.55,-71.45],[-32.9,-71.52],[-33.02,-71.58],[-33.05,-71.66],[-33.2,-71.70],[-33.38,-71.70],[-33.6,-71.63],[-33.9,-71.84],[-34.2,-71.98],[-34.45,-72.05],[-34.8,-72.10],[-35.1,-72.22],[-35.5,-72.48],[-35.9,-72.72],[-36.3,-72.82],[-36.6,-72.95],[-36.75,-73.15],[-37.0,-73.17],[-37.25,-73.60],[-37.6,-73.66],[-37.9,-73.55],[-38.3,-73.48],[-38.7,-73.42],[-39.1,-73.25]];
+  const ROADS = [ // rutas principales
+    {pts:["valpo","casa","stgo"], w:1.6, o:.55},                       // Ruta 68
+    {pts:["casa","algarrobo","quisco","cartagena","sanantonio"], w:1.4, o:.5}, // F-90 / costa
+    {pts:["stgo","talagante","melipilla","sanantonio"], w:1, o:.3},     // Ruta 78
+    {pts:["vina","quilpue","limache"], w:1, o:.3},
+    {pts:["limache","colina","stgo"], w:.9, o:.25},
+    {pts:["stgo","rancagua","curico","talca","linares","chillan","losangeles","victoria","lautaro","temuco"], w:1.4, o:.45, far:true}, // Ruta 5 Sur
+    {pts:["chillan","conce"], w:.9, o:.28, far:true},
+    {pts:["conce","losangeles"], w:.8, o:.22, far:true}
+  ];
+  const VIEWS = {
+    near:{lat:[-32.80,-33.78], lon:[-71.98,-70.42], W:460, font:19, dot:8},
+    far:{lat:[-32.55,-39.05], lon:[-74.05,-70.25], W:460, font:14, dot:5}
+  };
+  let seed=11; const rnd=()=> (seed=(seed*9301+49297)%233280)/233280;
+  function draw(mode){
+    const V=VIEWS[mode], pad=24, cos=Math.cos(34.5*Math.PI/180);
+    const dLat=V.lat[0]-V.lat[1], dLon=(V.lon[1]-V.lon[0])*cos;
+    const s=(V.W-2*pad)/dLon, H=Math.round(dLat*s+2*pad);
+    const P=([la,lo])=>[pad+(lo-V.lon[0])*cos*s, pad+(V.lat[0]-la)*s];
+    const p=k=>P(C[k]);
+    const path=pts=>{const q=pts.map(x=>typeof x==="string"?p(x):P(x)); let d=`M${q[0][0].toFixed(1)} ${q[0][1].toFixed(1)}`; for(let i=1;i<q.length;i++){const a=q[i-1],b=q[i],mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2; d+=` Q${a[0].toFixed(1)} ${a[1].toFixed(1)} ${mx.toFixed(1)} ${my.toFixed(1)}`;} const l=q[q.length-1]; return d+` L${l[0].toFixed(1)} ${l[1].toFixed(1)}`;};
+    let g="";
+    // calles finas alrededor de cada ciudad (trazo tipo plano urbano)
+    seed=11;
+    const cities = mode==="near" ? ["vina","valpo","casa","algarrobo","quisco","cartagena","sanantonio","stgo","quilpue","melipilla","talagante","colina","limache"] : Object.keys(C);
+    cities.forEach(k=>{
+      const [cx,cy]=p(k); const big = ["stgo","vina","valpo","conce","temuco"].includes(k);
+      const R = mode==="near" ? (big?44:k==="casa"?26:15) : (big?13:6);
+      const gap = mode==="near" ? (big?5.5:5) : 3.2;
+      const rot = (rnd()-.5)*.9;
+      [rot, rot+Math.PI/2+(rnd()-.5)*.15].forEach(ang=>{
+        const ux=Math.cos(ang), uy=Math.sin(ang), vx=-uy, vy=ux;
+        for(let off=-R; off<=R; off+=gap*(.8+rnd()*.6)){
+          const half=Math.sqrt(Math.max(R*R-off*off,0))*(.45+rnd()*.55); if(half<2) continue;
+          const sh=(rnd()-.5)*half*.4, x=cx+vx*off+ux*sh, y=cy+vy*off+uy*sh;
+          const o=(.10+.22*(1-Math.abs(off)/R)).toFixed(2);
+          g+=`<line x1="${(x-ux*half).toFixed(1)}" y1="${(y-uy*half).toFixed(1)}" x2="${(x+ux*half).toFixed(1)}" y2="${(y+uy*half).toFixed(1)}" stroke-width="${mode==="near"?.6:.45}" stroke-opacity="${o}"/>`;
+        }
+      });
+    });
+    // caminos secundarios sueltos
+    for(let i=0;i<(mode==="near"?10:18);i++){
+      const a=P([V.lat[0]-rnd()*(V.lat[0]-V.lat[1]), V.lon[0]+.15+rnd()*(V.lon[1]-V.lon[0]-.15)]);
+      const b=[a[0]+(rnd()-.5)*90, a[1]+(rnd()-.3)*70], c=[(a[0]+b[0])/2+(rnd()-.5)*30,(a[1]+b[1])/2+(rnd()-.5)*30];
+      g+=`<path d="M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${c[0].toFixed(1)} ${c[1].toFixed(1)} ${b[0].toFixed(1)} ${b[1].toFixed(1)}" stroke-width=".7" stroke-opacity=".16"/>`;
+    }
+    const roads = ROADS.filter(r=>mode==="far"||!r.far).map(r=>`<path d="${path(r.pts)}" stroke-width="${r.w}" stroke-opacity="${r.o}"/>`).join("");
+    // radio de foco en la zona central
+    const [kx,ky]=p("casa");
+    const pxPerKm = s/111;
+    const rings = [45,90].map((km,i)=>`<circle cx="${kx.toFixed(1)}" cy="${ky.toFixed(1)}" r="${(km*pxPerKm).toFixed(1)}" fill="${i?"none":"rgba(255,90,10,.06)"}" stroke="#ff5a0a" stroke-opacity="${i?.22:.35}" stroke-width="1.5" stroke-dasharray="4 7"/>`).join("");
+    const coast = `<path d="${path(COAST)}" fill="none" stroke="#3a2f27" stroke-width="3"/>`;
+    const lab=(k,t,dx,dy,opt={})=>{const [x,y]=p(k);const f=opt.size||V.font;return `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="${opt.r||V.dot}" fill="${opt.fill||"#f6f1ec"}" ${opt.ring?`stroke="#ff5a0a" stroke-width="2.5"`:""}/><text x="${(x+dx).toFixed(1)}" y="${(y+dy).toFixed(1)}" fill="${opt.color||"#f6f1ec"}" font-family="Anton, Impact, sans-serif" font-size="${f}" ${opt.anchor?`text-anchor="${opt.anchor}"`:""}>${t}</text>`;};
+    let pts="";
+    const [sx,sy]=p("stgo");
+    pts += `<line x1="${kx}" y1="${ky}" x2="${sx}" y2="${sy}" stroke="#ff5a0a" stroke-width="2" stroke-dasharray="2 6"/>`;
+    if(mode==="near"){
+      pts += lab("valpo","VIÑA · VALPARAÍSO",14,-10);
+      pts += lab("cartagena","LITORAL CENTRAL",14,6);
+      pts += lab("stgo","SANTIAGO",-38,32);
+      pts += `<text x="${(kx+24).toFixed(1)}" y="${(ky-14).toFixed(1)}" fill="#ff5a0a" font-family="Anton, Impact, sans-serif" font-size="24">CASABLANCA</text>`;
+    } else {
+      const route = path(["stgo","rancagua","curico","talca","linares","chillan","losangeles","victoria","lautaro"]);
+      pts += `<path d="${route}" fill="none" stroke="#ff5a0a" stroke-width="2" stroke-dasharray="2 6"/>`;
+      ["rancagua","talca","chillan","conce","losangeles","temuco"].forEach(k=>{const [x,y]=p(k);pts+=`<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="3" fill="#6e6258"/>`;});
+      const sm=(k,t,dx,dy)=>{const [x,y]=p(k);return `<text x="${(x+dx).toFixed(1)}" y="${(y+dy).toFixed(1)}" fill="#8f8378" font-family="Barlow, Arial, sans-serif" font-size="11">${t}</text>`;};
+      pts += sm("rancagua","Rancagua",8,4)+sm("talca","Talca",8,4)+sm("chillan","Chillán",8,4)+sm("conce","Concepción",-62,4)+sm("losangeles","Los Ángeles",8,4)+sm("temuco","Temuco",8,12);
+      pts += lab("vina","VIÑA · VALPARAÍSO",10,-6,{r:4,size:12});
+      pts += lab("stgo","SANTIAGO",10,4,{r:5});
+      pts += `<text x="${(kx-12).toFixed(1)}" y="${(ky+22).toFixed(1)}" fill="#ff5a0a" font-family="Anton, Impact, sans-serif" font-size="16" text-anchor="end">CASABLANCA</text>`;
+      pts += lab("lautaro","LAUTARO",12,0,{r:7,fill:"#0c0a09",ring:true,size:18});
+      const [lx,ly]=p("lautaro");
+      pts += `<text x="${(lx+12).toFixed(1)}" y="${(ly+16).toFixed(1)}" fill="#b6a99d" font-family="Barlow, Arial, sans-serif" font-size="12" font-weight="600">Región de La Araucanía</text>`;
+      const [mx,my]=P([-34.75,-71.0]);
+      pts += `<text x="${(mx-16).toFixed(1)}" y="${(my).toFixed(1)}" fill="#ff5a0a" font-family="Caveat Brush, cursive" font-size="20" text-anchor="end" transform="rotate(-6 ${(mx-16).toFixed(1)} ${my.toFixed(1)})">viajamos a regiones</text>`;
+    }
+    pts += `<circle cx="${kx.toFixed(1)}" cy="${ky.toFixed(1)}" r="${mode==="near"?18:9}" fill="#ff5a0a"/><circle cx="${kx.toFixed(1)}" cy="${ky.toFixed(1)}" r="${mode==="near"?7:3.5}" fill="#0c0a09"/>`;
+    const [ox,oy]=P([mode==="near"?-33.62:-36.0, mode==="near"?-71.86:-73.35]);
+    const ocean = `<text x="${ox.toFixed(1)}" y="${oy.toFixed(1)}" fill="#6e6258" font-size="12" font-family="Barlow, Arial, sans-serif" letter-spacing="2" transform="rotate(-80 ${ox.toFixed(1)} ${oy.toFixed(1)})">OCÉANO PACÍFICO</text>`;
+    svg.setAttribute("viewBox",`0 0 ${V.W} ${H}`);
+    svg.innerHTML = `${rings}<g fill="none" stroke="#f6f1ec" stroke-linecap="round">${g}${roads}</g>${coast}${ocean}${pts}`;
+  }
+  let cur="near"; draw(cur);
+  document.querySelectorAll(".maptoggle button").forEach(b=>b.addEventListener("click",()=>{
+    if(b.dataset.zoom===cur) return; cur=b.dataset.zoom;
+    document.querySelectorAll(".maptoggle button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+    svg.classList.add("fade"); setTimeout(()=>{draw(cur); svg.classList.remove("fade");},200);
+  }));
+})();
 
 renderTabs(); renderEvent(); update();
 </script>

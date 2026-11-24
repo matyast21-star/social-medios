@@ -255,6 +255,16 @@ footer .wrap{display:grid;gap:30px}
 .garrow.prev{left:-12px}.garrow.next{right:-12px}
 @media (max-width:700px){.garrow{display:none}}
 .gcount{margin-top:10px;color:var(--muted);font-size:14px}
+/* Empresas */
+.clients{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.client{padding:24px;border-radius:16px;background:var(--bg-2);border:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.client b{font-family:var(--display);font-size:28px;text-transform:uppercase;line-height:1.05}
+.client span{color:var(--muted)}
+.client em{font-style:normal;color:var(--orange);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+@media (max-width:900px){.clients{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.clients{grid-template-columns:1fr}}
+.games{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.games span{border:1px solid var(--orange);color:var(--fg);border-radius:999px;padding:7px 14px;font-weight:600;font-size:15px}
 /* Pantalla de carga */
 .loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
 .loader.out{opacity:0;pointer-events:none}
@@ -289,6 +299,7 @@ body.loading{overflow:hidden}
     <nav aria-label="Secciones">
       <a href="#eventos">Eventos</a>
       <a href="#packs">Packs</a>
+      <a href="#empresas">Empresas</a>
       <a href="#kako">KaKo Rojas</a>
       <a href="#galeria">Galería</a>
       <a href="#wikikubo">Wiki-Kubo</a>
@@ -369,6 +380,7 @@ body.loading{overflow:hidden}
       <div class="eyebrow">Tu animador</div>
       <blockquote>Conectar. <span>Crecer.</span> Pertenecer.</blockquote>
       <p class="bio">KaKo Rojas es la cara de Social Medios y el que pone a bailar a todos. Energía alta, humor y momentos que emocionan. En sus redes muestra eventos reales, su vida como papá y lo que pasa en MOOVA.</p>
+      <div class="games" aria-label="Juegos y momentos de KaKo"><span>Trivia del Kako</span><span>Guerra de Pelotas</span><span>Baile entretenido</span><span>Hora loca</span></div>
       <div class="socials">
         <a class="soc top1" href="https://www.tiktok.com/@soykakorojas" target="_blank" rel="noopener"><b>51,4 mil</b><small>TikTok · @soykakorojas</small></a>
         <a class="soc" href="https://www.instagram.com/soykakorojas/" target="_blank" rel="noopener"><b>6.038</b><small>Instagram · @soykakorojas</small></a>
@@ -497,6 +509,23 @@ body.loading{overflow:hidden}
   </div>
 </section>
 
+<section class="band" id="empresas">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Empresas</div><h2>Ya confiaron en nosotros</h2></div>
+      <p>Fiestas de fin de año, aniversarios, días de la familia y team building para equipos de más de 120 personas.</p>
+    </div>
+    <div class="clients">
+      <div class="client"><em>Team building 2025</em><b>FORMAC</b><span>"El Despertar de los Equipos" y la Competencia FORMAC, con más de 120 colaboradores.</span></div>
+      <div class="client"><em>Fiestas patrias</em><b>Rittal</b><span>Celebración dieciochera con juegos típicos para todo el equipo.</span></div>
+      <div class="client"><em>Aniversario</em><b>Transportes Apoquindo</b><span>Fiesta por sus 40 años.</span></div>
+      <div class="client"><em>Aniversario</em><b>Fidelizador</b><span>Celebración de su tercer año.</span></div>
+      <div class="client"><em>Día de la Familia 2026</em><b>Tejedoras de Sueños</b><span>Una jornada para las familias de la comunidad.</span></div>
+      <div class="client"><em>Tu empresa</em><b>¿La próxima?</b><span>Cotiza tu fiesta de fin de año o aniversario.</span><a class="btn btn-wa" href="#cotizar" style="margin-top:10px;align-self:flex-start" data-pick="empresa"><svg><use href="#wa"/></svg>Cotizar</a></div>
+    </div>
+  </div>
+</section>
+
 <section class="band" id="galeria">
   <div class="wrap">
     <div class="sec-head">
@@ -563,7 +592,7 @@ const EVENTS = [
    img:"img/evento-babyshower.jpg", alt:"KaKo Rojas animando un baby shower junto a la futura mamá",
    items:["Juegos clásicos y nuevos de baby shower","Animación cercana para grupos chicos o grandes","Momentos emotivos para la mamá","Música y ambiente de principio a fin"], cta:"Consulta disponibilidad para tu baby shower"},
   {id:"matri", tab:"Matrimonio", title:"Una pista que no se vacía", hand:"del primer baile a la última canción",
-   ph:"Foto de matrimonio real", items:["Animación de fiesta y hora loca","DJ para la ceremonia, cóctel y fiesta","Dinámicas para integrar a ambas familias","Wiki-Kubo entre cóctel y fiesta"], cta:"Consulta por tu matrimonio"},
+   ph:"Foto de matrimonio real", items:["Animación de fiesta y hora loca","DJ para la ceremonia, cóctel y fiesta","Dinámicas para integrar a ambas familias","Video con dron y cámara 360°"], cta:"Consulta por tu matrimonio"},
   {id:"empresa", tab:"Empresas", title:"Eventos de empresa con energía", hand:"que tu equipo se conozca jugando",
    ph:"Foto de evento corporativo real", items:["Animación para fiestas de fin de año y aniversarios","Wiki-Kubo para trivia y competencias por equipos","DJ y producción de sonido","Coordinación con tu sala o la nuestra"], cta:"Cotiza tu evento de empresa"}
 ];
@@ -594,10 +623,11 @@ $("#tabs").addEventListener("keydown", ev => {
   const i = EVENTS.findIndex(x=>x.id===current); const n = (i + (ev.key==="ArrowRight"?1:-1) + EVENTS.length) % EVENTS.length;
   current = EVENTS[n].id; renderTabs(); renderEvent(); $("#tab-"+current).focus();
 });
-$("#eventPanel").addEventListener("click", ev => { const a = ev.target.closest("[data-pick]"); if(a){ const r = document.querySelector(`#qEvent input[value="${a.dataset.pick}"]`); if(r){ r.checked = true; update(); } } });
+document.addEventListener("click", ev => { const a = ev.target.closest("[data-pick]"); if(a){ const r = document.querySelector(`#qEvent input[value="${a.dataset.pick}"]`); if(r){ r.checked = true; update(); } } });
 
 /* Cotizador */
-$("#qEvent").innerHTML = EVENTS.map((e,i)=>`<label class="chip"><input type="radio" name="ev" value="${e.id}" ${i===0?"checked":""}><span>${e.tab}</span></label>`).join("");
+const MORE_EVENTS = [{id:"quince",tab:"15 años"},{id:"despedida",tab:"Despedida de soltera"},{id:"patrias",tab:"Fiestas patrias"},{id:"aniversario",tab:"Aniversario o team building"}];
+$("#qEvent").innerHTML = EVENTS.concat(MORE_EVENTS).map((e,i)=>`<label class="chip"><input type="radio" name="ev" value="${e.id}" ${i===0?"checked":""}><span>${e.tab}</span></label>`).join("");
 $("#qExtras").innerHTML = EXTRAS.map((x,i)=>`<label class="chip"><input type="checkbox" name="ex" value="${x}" ${i<1?"checked":""}><span>${x}</span></label>`).join("");
 
 function fmtDate(v){
@@ -609,7 +639,7 @@ function fmtDate(v){
   return `${dias[dt.getDay()]} ${d} de ${meses[m-1]} de ${y}`;
 }
 function buildMsg(){
-  const ev = EVENTS.find(e => e.id === (document.querySelector('#qEvent input:checked')||{}).value);
+  const ev = EVENTS.concat(MORE_EVENTS).find(e => e.id === (document.querySelector('#qEvent input:checked')||{}).value);
   const name = $("#qName").value.trim();
   const date = fmtDate($("#qDate").value);
   const zone = $("#qZone").value;

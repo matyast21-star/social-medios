@@ -12,3 +12,5 @@ Secciones: eventos por tipo, servicios, KaKo, Wiki-Kubo, cotizador que arma el m
 3. Custom domains → agregar `socialmedios.cl` (y `www`).
 
 Cada push a `main` publica una nueva versión.
+
+Sitio en línea: https://social-medios.matyast21.workers.dev/

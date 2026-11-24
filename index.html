@@ -242,6 +242,18 @@ footer .wrap{display:grid;gap:30px}
 .packs-note{margin-top:18px;color:var(--muted);font-size:15px}
 @media (max-width:980px){.packs{grid-template-columns:repeat(2,1fr)}.pack.star{grid-row:auto;grid-column:1/-1}}
 @media (max-width:560px){.packs{grid-template-columns:1fr}}
+/* Galería */
+.gfilters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.gwrap{position:relative}
+.gtrack{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:10px;scrollbar-width:thin;scrollbar-color:var(--orange) transparent}
+.gitem{flex:0 0 auto;width:min(300px,72vw);aspect-ratio:4/5;margin:0;position:relative;border-radius:16px;overflow:hidden;scroll-snap-align:start;background:var(--bg-2);border:1px solid var(--line)}
+.gitem img{width:100%;height:100%;object-fit:cover}
+.gitem figcaption{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.85));font-weight:700;font-size:15px}
+.gitem figcaption small{display:block;color:var(--orange);font-size:12px;letter-spacing:.12em;text-transform:uppercase}
+.garrow{position:absolute;top:calc(50% - 26px);width:48px;height:48px;border-radius:50%;border:0;background:var(--orange);color:var(--ink-on-orange);font-size:22px;font-weight:700;cursor:pointer;display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.5)}
+.garrow.prev{left:-12px}.garrow.next{right:-12px}
+@media (max-width:700px){.garrow{display:none}}
+.gcount{margin-top:10px;color:var(--muted);font-size:14px}
 /* Pantalla de carga */
 .loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
 .loader.out{opacity:0;pointer-events:none}
@@ -277,6 +289,7 @@ body.loading{overflow:hidden}
       <a href="#eventos">Eventos</a>
       <a href="#packs">Packs</a>
       <a href="#kako">KaKo Rojas</a>
+      <a href="#galeria">Galería</a>
       <a href="#wikikubo">Wiki-Kubo</a>
       <a href="#moova">MOOVA</a>
       <a href="#cobertura">Cobertura</a>
@@ -483,6 +496,22 @@ body.loading{overflow:hidden}
   </div>
 </section>
 
+<section class="band" id="galeria">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Galería</div><h2>Fotos de eventos reales</h2></div>
+      <p>Elige el tipo de evento y desliza para ver más.</p>
+    </div>
+    <div class="gfilters chips" id="gFilters" role="group" aria-label="Filtrar fotos por evento"></div>
+    <div class="gwrap">
+      <button class="garrow prev" type="button" id="gPrev" aria-label="Fotos anteriores">‹</button>
+      <div class="gtrack" id="gTrack" tabindex="0" aria-label="Carrusel de fotos"></div>
+      <button class="garrow next" type="button" id="gNext" aria-label="Fotos siguientes">›</button>
+    </div>
+    <p class="gcount" id="gCount"></p>
+  </div>
+</section>
+
 <section class="band" id="reales">
   <div class="wrap">
     <div class="sec-head">
@@ -680,6 +709,33 @@ $("#packsGrid").innerHTML = PACKS.map(p => `<article class="pack${p.star?" star"
   ${p.items?`<ul style="list-style:none;padding:0;margin:4px 0 8px;display:grid;gap:8px;color:var(--muted)">${p.items.map(i=>`<li>— ${i}</li>`).join("")}</ul>`:""}
   <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`¡Hola Social Medios! Quiero cotizar el ${p.name}${p.price?` (${p.price})`:""}. ¿Tienen disponibilidad?\n\n(Mensaje desde socialmedios.cl)`)}">${waIcon}Cotizar</a>
 </article>`).join("");
+
+/* Galería por tipo de evento */
+const GCATS = [["todos","Todos"],["moova","Fiestas en MOOVA"],["cumple","Cumpleaños"],["baby","Baby shower"],["monos","Monos cabezones"],["glitter","Glitter Room"]];
+const GALLERY = [
+  {src:"img/galeria/moova-cumple-1.jpg", t:"Cumpleaños en MOOVA", c:"Fiesta", cats:["moova","cumple"]},
+  {src:"img/galeria/moova-badbunny-1.jpg", t:"Bad Bunny en la pista", c:"Fiesta en MOOVA", cats:["moova","monos"]},
+  {src:"img/galeria/stitch-babyshower.jpg", t:"Stitch en un baby shower", c:"Baby shower", cats:["baby","monos"]},
+  {src:"img/galeria/glitter-room.jpg", t:"Glitter Room by Mel", c:"Glitter Room", cats:["glitter"]},
+  {src:"img/galeria/moova-cumple-2.jpg", t:"Cumpleaños en MOOVA", c:"Fiesta", cats:["moova","cumple"]},
+  {src:"img/galeria/stitch-kako.jpg", t:"KaKo con Stitch", c:"Monos cabezones", cats:["monos"]},
+  {src:"img/galeria/moova-badbunny-2.jpg", t:"Bad Bunny bailando con todos", c:"Fiesta en MOOVA", cats:["moova","monos"]},
+  {src:"img/galeria/badbunny-1.jpg", t:"Bad Bunny cabezón", c:"Monos cabezones", cats:["monos"]},
+  {src:"img/galeria/stitch-1.jpg", t:"Foto con Stitch", c:"Monos cabezones", cats:["monos"]}
+];
+let gcat = "todos";
+function renderGallery(){
+  $("#gFilters").innerHTML = GCATS.map(([id,l]) => `<label class="chip"><input type="radio" name="gcat" value="${id}" ${id===gcat?"checked":""}><span>${l}</span></label>`).join("");
+  const items = GALLERY.filter(g => gcat==="todos" || g.cats.includes(gcat));
+  $("#gTrack").innerHTML = items.map(g => `<figure class="gitem"><img src="${g.src}" alt="${esc(g.t)}" loading="lazy"><figcaption><small>${g.c}</small>${g.t}</figcaption></figure>`).join("");
+  $("#gTrack").scrollLeft = 0;
+  $("#gCount").textContent = `${items.length} foto${items.length===1?"":"s"}`;
+}
+$("#gFilters").addEventListener("change", e => { gcat = e.target.value; renderGallery(); });
+const gstep = dir => { const t=$("#gTrack"); const w=(t.querySelector(".gitem")||{offsetWidth:300}).offsetWidth+14; t.scrollBy({left:dir*w,behavior:"smooth"}); };
+$("#gPrev").addEventListener("click", () => gstep(-1));
+$("#gNext").addEventListener("click", () => gstep(1));
+renderGallery();
 
 renderTabs(); renderEvent(); update();
 </script>

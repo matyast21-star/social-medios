@@ -225,6 +225,22 @@ footer .wrap{display:grid;gap:30px}
 .moova-banner:hover{transform:translateY(-3px);border-color:#8955ee}
 .moova-banner img{width:100%;height:auto}
 .moova-link{display:inline-block;margin-top:6px;color:var(--fg);font-weight:700;text-decoration:none;border-bottom:2px solid #f43f98}
+/* Packs */
+.packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.pack{display:flex;flex-direction:column;gap:10px;padding:26px 24px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line);min-width:0}
+.pack .k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.pack h3{font-size:30px}
+.pack .hrs{display:inline-block;align-self:flex-start;font-weight:700;font-size:13px;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
+.pack .pr{font-family:var(--display);font-size:44px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
+.pack .pr.q{font-family:var(--body);font-size:15px;font-weight:600;color:var(--muted)}
+.pack .btn{margin-top:auto;align-self:flex-start}
+.pack.star{grid-row:span 2;background:linear-gradient(160deg,#2a1206,var(--bg-2) 60%);border:2px solid var(--orange);justify-content:flex-start}
+.pack.star h3{font-size:clamp(40px,4.4vw,56px)}
+.pack.star .pr{font-size:clamp(56px,6vw,76px);color:var(--orange)}
+.pack.star .tag{align-self:flex-start;background:var(--orange);color:var(--ink-on-orange);font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;border-radius:6px;padding:5px 10px}
+.packs-note{margin-top:18px;color:var(--muted);font-size:15px}
+@media (max-width:980px){.packs{grid-template-columns:repeat(2,1fr)}.pack.star{grid-row:auto;grid-column:1/-1}}
+@media (max-width:560px){.packs{grid-template-columns:1fr}}
 /* Pantalla de carga */
 .loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
 .loader.out{opacity:0;pointer-events:none}
@@ -258,6 +274,7 @@ body.loading{overflow:hidden}
     <a class="brand" href="#inicio" aria-label="Social Medios CL, inicio"><img src="img/logo-social-medios.png" alt="Social Medios"></a>
     <nav aria-label="Secciones">
       <a href="#eventos">Eventos</a>
+      <a href="#packs">Packs</a>
       <a href="#kako">KaKo Rojas</a>
       <a href="#wikikubo">Wiki-Kubo</a>
       <a href="#moova">MOOVA</a>
@@ -312,6 +329,17 @@ body.loading{overflow:hidden}
       <article class="svc"><span class="n">INTERACTIVO</span><h3>Wiki-Kubo</h3><p>Juegos y desafíos desde el celular de cada invitado con un QR. Sin descargar nada.</p><span class="price">Nuevo · noviembre 2026</span></article>
       <article class="svc"><span class="n">SALA</span><h3>MOOVA Studio</h3><p>Sala propia en Casablanca para tu celebración, más clases de baile durante la semana.</p><span class="price">Celebraciones desde $200.000</span><a class="moova-link" href="https://moova-studio.vercel.app" target="_blank" rel="noopener">Reservar en MOOVA</a></article>
     </div>
+  </div>
+</section>
+
+<section class="band" id="packs">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><div class="eyebrow">Packs</div><h2>Elige tu pack</h2></div>
+      <p>KaKo anima cumpleaños, baby showers, matrimonios y eventos de empresa en la V Región y la Región Metropolitana. También puedes celebrar en las salas MOOVA.</p>
+    </div>
+    <div class="packs" id="packsGrid"></div>
+    <p class="packs-note">Los packs sin precio se cotizan según fecha, lugar e invitados. Te respondemos por WhatsApp.</p>
   </div>
 </section>
 
@@ -509,7 +537,7 @@ const EVENTS = [
   {id:"empresa", tab:"Empresas", title:"Eventos de empresa con energía", hand:"que tu equipo se conozca jugando",
    ph:"Foto de evento corporativo real", items:["Animación para fiestas de fin de año y aniversarios","Wiki-Kubo para trivia y competencias por equipos","DJ y producción de sonido","Coordinación con tu sala o la nuestra"], cta:"Cotiza tu evento de empresa"}
 ];
-const EXTRAS = ["Animación con KaKo","DJ","Wiki-Kubo","Hora loca","Sala MOOVA"];
+const EXTRAS = ["Pack de lujo DJ + Animador","Animador","Solo DJ","Cámara 360°","Cabina fotográfica","Wiki-Kubo","Sala MOOVA"];
 
 const $ = s => document.querySelector(s);
 const waIcon = '<svg><use href="#wa"/></svg>';
@@ -540,7 +568,7 @@ $("#eventPanel").addEventListener("click", ev => { const a = ev.target.closest("
 
 /* Cotizador */
 $("#qEvent").innerHTML = EVENTS.map((e,i)=>`<label class="chip"><input type="radio" name="ev" value="${e.id}" ${i===0?"checked":""}><span>${e.tab}</span></label>`).join("");
-$("#qExtras").innerHTML = EXTRAS.map((x,i)=>`<label class="chip"><input type="checkbox" name="ex" value="${x}" ${i<2?"checked":""}><span>${x}</span></label>`).join("");
+$("#qExtras").innerHTML = EXTRAS.map((x,i)=>`<label class="chip"><input type="checkbox" name="ex" value="${x}" ${i<1?"checked":""}><span>${x}</span></label>`).join("");
 
 function fmtDate(v){
   if(!v) return "";
@@ -634,6 +662,24 @@ $("#copyBtn").addEventListener("click", () => {
   play(); v.addEventListener("pause", () => { if(!document.hidden) setTimeout(play, 200); });
   document.addEventListener("visibilitychange", () => { if(!document.hidden) play(); });
 })();
+
+/* Packs */
+const PACKS = [
+  {id:"lujo", star:true, k:"DJ, animación y producción para tu evento", name:"Pack de lujo: DJ + Animador", price:"$350.000"},
+  {id:"animador", k:"Animador pro con dinámicas y juegos", hrs:"4 h", name:"Animador · creador de momentos"},
+  {id:"dj", k:"DJ profesional, luces y amplificación", hrs:"4 h", name:"Solo DJ · todos los estilos"},
+  {id:"360", k:"Videos en 360° para tus invitados", hrs:"2 h", name:"Cámara 360° con cotillón"},
+  {id:"cabina", k:"Fotos con impresión al instante", name:"Cabina fotográfica"}
+];
+$("#packsGrid").innerHTML = PACKS.map(p => `<article class="pack${p.star?" star":""}">
+  ${p.star?'<span class="tag">El más completo</span>':""}
+  <span class="k">${p.k}</span>
+  <h3>${p.name}</h3>
+  ${p.hrs?`<span class="hrs">${p.hrs}</span>`:""}
+  ${p.price?`<span class="pr">${p.price}</span>`:`<span class="pr q">Precio según tu evento</span>`}
+  ${p.items?`<ul style="list-style:none;padding:0;margin:4px 0 8px;display:grid;gap:8px;color:var(--muted)">${p.items.map(i=>`<li>— ${i}</li>`).join("")}</ul>`:""}
+  <a class="btn btn-wa" target="_blank" rel="noopener" href="${waLink(`¡Hola Social Medios! Quiero cotizar el ${p.name}${p.price?` (${p.price})`:""}. ¿Tienen disponibilidad?\n\n(Mensaje desde socialmedios.cl)`)}">${waIcon}Cotizar</a>
+</article>`).join("");
 
 renderTabs(); renderEvent(); update();
 </script>

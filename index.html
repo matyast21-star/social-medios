@@ -8,7 +8,13 @@
 <meta property="og:description" content="Cumpleaños, baby showers, matrimonios y eventos de empresa con KaKo Rojas.">
 <meta property="og:image" content="/img/banner-ecosistema.jpg">
 <meta name="theme-color" content="#0c0a09">
-<link rel="icon" href="/img/logo-kako.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Social Medios">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
 <link rel="preload" as="video" href="/video/pantalla-carga-v2.mp4" type="video/mp4">
 <title>Social Medios CL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -906,5 +912,6 @@ renderGallery();
 renderTabs(); renderEvent(); update();
 </script>
 
+<script>if("serviceWorker" in navigator){addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(()=>{}));}</script>
 </body>
 </html>

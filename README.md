@@ -14,3 +14,9 @@ Secciones: eventos por tipo, servicios, KaKo, Wiki-Kubo, cotizador que arma el m
 Cada push a `main` publica una nueva versión.
 
 Sitio en línea: https://social-medios.matyast21.workers.dev/
+
+## Cuando se conecte socialmedios.cl
+1. Reemplazar `https://social-medios.matyast21.workers.dev/` por `https://socialmedios.cl/` en `index.html` (canonical, og:url, og:image, twitter:image, JSON-LD), `robots.txt` y `sitemap.xml`:
+   `grep -rl "social-medios.matyast21.workers.dev" index.html robots.txt sitemap.xml | xargs sed -i 's#https://social-medios.matyast21.workers.dev/#https://socialmedios.cl/#g'`
+2. Cloudflare → socialmedios.cl → Rules → Redirect Rules: `www.socialmedios.cl/*` → `https://socialmedios.cl/${1}` (301).
+3. Worker `social-medios` → Settings → Domains & Routes: agregar `socialmedios.cl` como Custom Domain y desactivar `workers.dev` (o redirigirlo) para que no quede duplicado.

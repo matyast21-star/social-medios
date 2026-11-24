@@ -228,13 +228,14 @@ footer .wrap{display:grid;gap:30px}
 .moova-link{display:inline-block;margin-top:6px;color:var(--fg);font-weight:700;text-decoration:none;border-bottom:2px solid #f43f98}
 /* Packs */
 .packs{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.pack{display:flex;flex-direction:column;gap:10px;padding:26px 24px;border-radius:18px;background:var(--bg-2);border:1px solid var(--line);min-width:0}
+.pack{display:flex;flex-direction:column;gap:10px;padding:26px 24px;overflow:hidden;border-radius:18px;background:var(--bg-2);border:1px solid var(--line);min-width:0}
 .pack .k{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .pack h3{font-size:30px}
 .pack .hrs{display:inline-block;align-self:flex-start;font-weight:700;font-size:13px;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:4px 10px}
 .pack .pr{font-family:var(--display);font-size:44px;line-height:1;color:var(--fg);font-variant-numeric:tabular-nums}
 .pack .pr.q{font-family:var(--body);font-size:15px;font-weight:600;color:var(--muted)}
 .pack .btn{margin-top:auto;align-self:flex-start}
+.pack .pimg{width:calc(100% + 48px);margin:-26px -24px 6px;aspect-ratio:16/10;object-fit:cover;object-position:center 22%;max-width:none}
 .pack.star{grid-row:span 2;background:linear-gradient(160deg,#2a1206,var(--bg-2) 60%);border:2px solid var(--orange);justify-content:flex-start}
 .pack.star h3{font-size:clamp(40px,4.4vw,56px)}
 .pack.star .pr{font-size:clamp(56px,6vw,76px);color:var(--orange)}
@@ -566,7 +567,7 @@ const EVENTS = [
   {id:"empresa", tab:"Empresas", title:"Eventos de empresa con energía", hand:"que tu equipo se conozca jugando",
    ph:"Foto de evento corporativo real", items:["Animación para fiestas de fin de año y aniversarios","Wiki-Kubo para trivia y competencias por equipos","DJ y producción de sonido","Coordinación con tu sala o la nuestra"], cta:"Cotiza tu evento de empresa"}
 ];
-const EXTRAS = ["Pack de lujo DJ + Animador","Animador","Solo DJ","Cámara 360°","Cabina fotográfica","Monos cabezones: Bad Bunny","Monos cabezones: Stitch","Wiki-Kubo","Sala MOOVA"];
+const EXTRAS = ["Pack de lujo DJ + Animador","Animador","Solo DJ","Cámara 360°","Cabina fotográfica","Monos cabezones: Bad Bunny","Monos cabezones: Stitch","Glitter Room","Wiki-Kubo","Sala MOOVA"];
 
 const $ = s => document.querySelector(s);
 const waIcon = '<svg><use href="#wa"/></svg>';
@@ -698,9 +699,13 @@ const PACKS = [
   {id:"animador", k:"Animador pro con dinámicas y juegos", hrs:"4 h", name:"Animador · creador de momentos"},
   {id:"dj", k:"DJ profesional, luces y amplificación", hrs:"4 h", name:"Solo DJ · todos los estilos"},
   {id:"360", k:"Videos en 360° para tus invitados", hrs:"2 h", name:"Cámara 360° con cotillón"},
-  {id:"cabina", k:"Fotos con impresión al instante", name:"Cabina fotográfica"}
+  {id:"cabina", k:"Fotos con impresión al instante", name:"Cabina fotográfica"},
+  {id:"badbunny", k:"Mono cabezón para bailar y sacarse fotos", hrs:"2 h", name:"Mono cabezón: Bad Bunny", img:"img/galeria/badbunny-1.jpg"},
+  {id:"stitch", k:"Mono cabezón para bailar y sacarse fotos", hrs:"2 h", name:"Mono cabezón: Stitch", img:"img/galeria/stitch-kako.jpg"},
+  {id:"glitter", k:"Pinta caritas con brillos y glitter", name:"Glitter Room", img:"img/galeria/glitter-room.jpg"}
 ];
 $("#packsGrid").innerHTML = PACKS.map(p => `<article class="pack${p.star?" star":""}">
+  ${p.img?`<img class="pimg" src="${p.img}" alt="${esc(p.name)}" loading="lazy">`:""}
   ${p.star?'<span class="tag">El más completo</span>':""}
   <span class="k">${p.k}</span>
   <h3>${p.name}</h3>

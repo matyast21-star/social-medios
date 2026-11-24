@@ -123,6 +123,9 @@ section.band{overflow-x:clip;padding-block:88px;border-bottom:1px solid var(--li
 .svc .n{font-family:var(--display);color:var(--orange);font-size:15px;letter-spacing:.12em}
 .svc p{color:var(--muted);font-size:16px}
 .svc .price{margin-top:auto;font-weight:700;color:var(--fg)}
+.svc .ig{margin-top:auto;display:inline-flex;align-items:center;gap:8px;color:var(--orange);font-weight:700;text-decoration:none;width:fit-content}
+.svc .ig:hover{text-decoration:underline}
+.svc .ig+.price{margin-top:0}
 @media (max-width:980px){.services{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:520px){.services{grid-template-columns:1fr}}
 
@@ -371,7 +374,7 @@ body.loading{overflow:hidden}
       <p>Arma tu evento con una pieza o con todas. Se cotiza según fecha, lugar y número de invitados.</p>
     </div>
     <div class="services">
-      <article class="svc"><span class="n">ANIMACIÓN</span><h3>KaKo Rojas</h3><p>Dinámicas, juegos, hora loca y el que "llega diciendo yo no bailo" terminando en la pista.</p><span class="price">Se cotiza por WhatsApp</span></article>
+      <article class="svc"><span class="n">ANIMACIÓN</span><h3>KaKo Rojas</h3><p>Dinámicas, juegos, hora loca y el que "llega diciendo yo no bailo" terminando en la pista.</p><a class="ig" href="https://www.instagram.com/soykakorojas/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>@soykakorojas</a><span class="price">Se cotiza por WhatsApp</span></article>
       <article class="svc"><span class="n">MÚSICA</span><h3>DJ y producción</h3><p>Música, sonido y producción del evento para que la pista no se vacíe en toda la noche.</p><span class="price">Se cotiza por WhatsApp</span></article>
       <article class="svc"><span class="n">INTERACTIVO</span><h3>Wiki-Kubo</h3><p>Juegos y desafíos desde el celular de cada invitado con un QR. Sin descargar nada.</p><span class="price">Nuevo · noviembre 2026</span></article>
       <article class="svc"><span class="n">SALA</span><h3>MOOVA Studio</h3><p>Sala propia en Casablanca para tu celebración, más clases de baile durante la semana.</p><span class="price">Celebraciones desde $200.000</span><a class="moova-link" href="https://moova-studio.vercel.app" target="_blank" rel="noopener">Reservar en MOOVA</a></article>

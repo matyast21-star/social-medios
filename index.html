@@ -225,7 +225,6 @@ footer .wrap{display:grid;gap:30px}
 .loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
 .loader.out{opacity:0;pointer-events:none}
 .loader video{width:100%;height:100%;object-fit:contain;background:#08060a}
-@media (orientation:portrait){.loader video{object-fit:cover}}
 .loader-ctrl{position:absolute;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
 .pill{font:600 14px/1 var(--body);color:var(--fg);background:rgba(12,10,9,.7);border:1px solid rgba(246,241,236,.3);border-radius:999px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(6px)}
 .pill:hover{border-color:var(--orange)}

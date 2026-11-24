@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="Social Medios CL: animación, DJ y producción de eventos con KaKo Rojas en Casablanca, Quinta Región y Santiago. Cotiza por WhatsApp.">
+<meta name="description" content="Social Medios CL: animación y producción de eventos con KaKo Rojas en Casablanca, Quinta Región y Santiago. Cotiza por WhatsApp.">
 <meta property="og:title" content="Social Medios CL · Animación · Ambiente · Experiencias">
 <meta property="og:description" content="Cumpleaños, baby showers, matrimonios y eventos de empresa con KaKo Rojas.">
 <meta property="og:image" content="/img/banner-ecosistema.jpg">
 <meta name="theme-color" content="#0c0a09">
 <link rel="icon" href="/img/logo-kako.png">
+<link rel="preload" as="video" href="/video/pantalla-carga.mp4" type="video/mp4">
 <title>Social Medios CL</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow:wght@400;500;600;700&family=Caveat+Brush&display=swap">
@@ -219,8 +220,21 @@ footer .wrap{display:grid;gap:30px}
 .fab{position:fixed;z-index:8;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));width:60px;height:60px;border-radius:50%;background:var(--orange);color:var(--ink-on-orange);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.5);text-decoration:none}
 .fab svg{width:30px;height:30px}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--fg);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:700;z-index:20}
+
+/* Pantalla de carga */
+.loader{position:fixed;inset:0;z-index:50;background:#08060a;display:grid;place-items:center;transition:opacity .6s ease}
+.loader.out{opacity:0;pointer-events:none}
+.loader video{width:100%;height:100%;object-fit:contain;background:#08060a}
+@media (orientation:portrait){.loader video{object-fit:cover}}
+.loader-ctrl{position:absolute;right:calc(16px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));display:flex;gap:8px}
+.pill{font:600 14px/1 var(--body);color:var(--fg);background:rgba(12,10,9,.7);border:1px solid rgba(246,241,236,.3);border-radius:999px;padding:10px 16px;cursor:pointer;backdrop-filter:blur(6px)}
+.pill:hover{border-color:var(--orange)}
+body.loading{overflow:hidden}
+/* Banner en video */
+.banner-wrap{position:relative}
+.banner-wrap .pill{position:absolute;right:14px;bottom:14px}
 </style>
-<style>body{margin:0}</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
 </head>
 <body>
 
@@ -228,6 +242,14 @@ footer .wrap{display:grid;gap:30px}
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="wa" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.8 11.8 11.8 0 0 0 4.6 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.3Z"/></symbol>
 </svg>
+
+<div class="loader" id="loader" aria-label="Cargando Social Medios">
+  <video id="loaderVideo" src="video/pantalla-carga.mp4" poster="img/pantalla-carga-poster.jpg" muted playsinline preload="auto"></video>
+  <div class="loader-ctrl">
+    <button class="pill" type="button" id="loaderSound" aria-pressed="false">Activar sonido</button>
+    <button class="pill" type="button" id="loaderSkip">Entrar al sitio</button>
+  </div>
+</div>
 
 <header class="top">
   <div class="wrap">
@@ -447,7 +469,10 @@ footer .wrap{display:grid;gap:30px}
 
 <footer>
   <div class="wrap">
-    <img class="banner" src="img/banner-ecosistema.jpg" alt="Social Medios, Animaciones KaKo Rojas y MOOVA Studio, con tecnología de Fluva" loading="lazy">
+    <div class="banner-wrap">
+      <video class="banner" id="bannerVideo" src="video/banner-marcas.mp4" poster="img/banner-ecosistema.jpg" muted loop playsinline preload="none" aria-label="Social Medios, Animaciones KaKo Rojas y MOOVA Studio, con tecnología de Fluva"></video>
+      <button class="pill" type="button" id="bannerSound" aria-pressed="false">Activar sonido</button>
+    </div>
     <div class="foot-row">
       <span>Social Medios CL · Animación · Ambiente · Experiencias · Casablanca, Chile</span>
       <span><a href="https://www.instagram.com/socialmedioscl/" target="_blank" rel="noopener">Instagram</a> · <a href="https://www.tiktok.com/@soykakorojas" target="_blank" rel="noopener">TikTok</a> · <a href="https://www.instagram.com/moova.cl/" target="_blank" rel="noopener">MOOVA</a></span>
@@ -564,6 +589,32 @@ $("#copyBtn").addEventListener("click", () => {
   const finder=(a,b)=>{x.fillStyle="#f6f1ec";x.fillRect(a-1,b-1,9,9);x.fillStyle="#0c0a09";x.fillRect(a,b,7,7);x.fillStyle="#f6f1ec";x.fillRect(a+1,b+1,5,5);x.fillStyle="#ff5a0a";x.fillRect(a+2,b+2,3,3);};
   finder(0,0);finder(N-7,0);finder(0,N-7);
   x.fillStyle="#f6f1ec";x.fillRect(11,11,7,7);x.fillStyle="#ff5a0a";x.fillRect(12,12,5,5);
+})();
+
+
+/* Pantalla de carga: una vez por sesión, se salta con movimiento reducido */
+(function(){
+  const box = $("#loader"), v = $("#loaderVideo");
+  let seen = false; try { seen = sessionStorage.getItem("sm-intro") === "1"; } catch(e){}
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let done = false;
+  const close = () => { if(done) return; done = true; box.classList.add("out"); document.body.classList.remove("loading"); v.pause(); try { sessionStorage.setItem("sm-intro","1"); } catch(e){} setTimeout(()=>box.remove(), 700); };
+  if(seen || reduce){ box.remove(); return; }
+  document.body.classList.add("loading");
+  v.addEventListener("ended", close);
+  v.play().catch(()=>setTimeout(close, 1500));
+  setTimeout(close, 9000);
+  $("#loaderSkip").addEventListener("click", close);
+  $("#loaderSound").addEventListener("click", e => { v.muted = !v.muted; if(!v.muted) v.play().catch(()=>{}); e.target.textContent = v.muted ? "Activar sonido" : "Silenciar"; e.target.setAttribute("aria-pressed", String(!v.muted)); });
+})();
+
+/* Banner de marcas: se reproduce solo cuando está a la vista */
+(function(){
+  const v = $("#bannerVideo"), b = $("#bannerSound");
+  if("IntersectionObserver" in window){
+    new IntersectionObserver(es => es.forEach(en => { if(en.isIntersecting){ v.play().catch(()=>{}); } else { v.pause(); } }), {threshold:.35}).observe(v);
+  } else { v.preload = "auto"; v.play().catch(()=>{}); }
+  b.addEventListener("click", () => { v.muted = !v.muted; if(!v.muted) v.play().catch(()=>{}); b.textContent = v.muted ? "Activar sonido" : "Silenciar"; b.setAttribute("aria-pressed", String(!v.muted)); });
 })();
 
 renderTabs(); renderEvent(); update();

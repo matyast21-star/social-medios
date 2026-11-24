@@ -586,15 +586,15 @@ const WA_NUMBER = "56978032743";
 
 const EVENTS = [
   {id:"cumple", tab:"Cumpleaños", title:"¿Otro cumpleaños más?", hand:"¡que este sea inolvidable!", ages:"30 · 40 · 50 · 60 años y más",
-   img:"img/evento-cumpleanos.jpg", alt:"KaKo Rojas animando un cumpleaños con invitados riendo",
+   img:"img/galeria/moova-cumple-1.jpg", alt:"Cumpleaños con KaKo en MOOVA Studio, invitados bailando",
    items:["Animación de KaKo toda la noche","Juegos, dinámicas y hora loca","DJ y ambiente musical","Wiki-Kubo para que todos jueguen"], cta:"Consulta por tu fecha"},
   {id:"baby", tab:"Baby shower", title:"¡Que la futura mamá también disfrute!", hand:"nosotros ponemos los juegos y las risas",
-   img:"img/evento-babyshower.jpg", alt:"KaKo Rojas animando un baby shower junto a la futura mamá",
+   img:"img/galeria/stitch-babyshower.jpg", alt:"Stitch junto a los cubos BABY en un baby shower",
    items:["Juegos clásicos y nuevos de baby shower","Animación cercana para grupos chicos o grandes","Momentos emotivos para la mamá","Música y ambiente de principio a fin"], cta:"Consulta disponibilidad para tu baby shower"},
   {id:"matri", tab:"Matrimonio", title:"Una pista que no se vacía", hand:"del primer baile a la última canción",
-   ph:"Foto de matrimonio real", items:["Animación de fiesta y hora loca","DJ para la ceremonia, cóctel y fiesta","Dinámicas para integrar a ambas familias","Video con dron y cámara 360°"], cta:"Consulta por tu matrimonio"},
+   img:"img/galeria/sm-matrimonio-pista.jpg", alt:"Invitados bailando en un matrimonio animado por Social Medios", items:["Animación de fiesta y hora loca","DJ para la ceremonia, cóctel y fiesta","Dinámicas para integrar a ambas familias","Video con dron y cámara 360°"], cta:"Consulta por tu matrimonio"},
   {id:"empresa", tab:"Empresas", title:"Eventos de empresa con energía", hand:"que tu equipo se conozca jugando",
-   ph:"Foto de evento corporativo real", items:["Animación para fiestas de fin de año y aniversarios","Wiki-Kubo para trivia y competencias por equipos","DJ y producción de sonido","Coordinación con tu sala o la nuestra"], cta:"Cotiza tu evento de empresa"}
+   img:"img/galeria/sm-empresa-colaboradores.jpg", alt:"Colaboradores celebrando con globos en un evento de empresa", items:["Animación para fiestas de fin de año y aniversarios","Wiki-Kubo para trivia y competencias por equipos","DJ y producción de sonido","Coordinación con tu sala o la nuestra"], cta:"Cotiza tu evento de empresa"}
 ];
 const EXTRAS = ["Pack de lujo DJ + Animador","Animador","Solo DJ","Cámara 360°","Cabina fotográfica","Monos cabezones: Bad Bunny","Monos cabezones: Stitch","Glitter Room","Wiki-Kubo","Sala MOOVA"];
 
@@ -746,16 +746,42 @@ $("#packsGrid").innerHTML = PACKS.map(p => `<article class="pack${p.star?" star"
 </article>`).join("");
 
 /* Galería por tipo de evento */
-const GCATS = [["todos","Todos"],["moova","Fiestas en MOOVA"],["cumple","Cumpleaños"],["baby","Baby shower"],["monos","Monos cabezones"],["glitter","Glitter Room"]];
+const GCATS = [["todos","Todos"],["matri","Matrimonios"],["quince","15 años"],["cumple","Cumpleaños"],["empresa","Empresas"],["moova","Fiestas en MOOVA"],["baby","Baby shower"],["monos","Monos cabezones"],["kako","Con KaKo"],["glitter","Glitter Room"]];
 const GALLERY = [
-  {src:"img/galeria/moova-cumple-1.jpg", t:"Cumpleaños en MOOVA", c:"Fiesta", cats:["moova","cumple"]},
-  {src:"img/galeria/moova-badbunny-1.jpg", t:"Bad Bunny en la pista", c:"Fiesta en MOOVA", cats:["moova","monos"]},
+  {src:"img/galeria/sm-matrimonio-pista.jpg", t:"Pista llena en el matrimonio", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-quince-festejada.jpg", t:"La festejada y sus amigas", c:"15 años", cats:["quince"]},
+  {src:"img/galeria/sm-empresa-juegos-tipicos.jpg", t:"Juegos típicos con Rittal", c:"Empresas", cats:["empresa","kako"]},
+  {src:"img/galeria/moova-cumple-1.jpg", t:"Cumpleaños en MOOVA", c:"Cumpleaños", cats:["moova","cumple"]},
+  {src:"img/galeria/sm-matrimonio-kako-novios.jpg", t:"KaKo con los novios", c:"Matrimonio", cats:["matri","kako"]},
   {src:"img/galeria/stitch-babyshower.jpg", t:"Stitch en un baby shower", c:"Baby shower", cats:["baby","monos"]},
+  {src:"img/galeria/sm-empresa-baile.jpg", t:"Baile corporativo", c:"Empresas", cats:["empresa"]},
+  {src:"img/galeria/moova-badbunny-1.jpg", t:"Bad Bunny en la pista", c:"Fiesta en MOOVA", cats:["moova","monos"]},
+  {src:"img/galeria/sm-kako-microfono.jpg", t:"KaKo al micrófono", c:"Con KaKo", cats:["kako"]},
+  {src:"img/galeria/sm-matrimonio-llegada.jpg", t:"Llegada de los novios", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-quince-torta.jpg", t:"Momento de la torta", c:"15 años", cats:["quince"]},
+  {src:"img/galeria/sm-dia-familia-2026.jpg", t:"Día de la Familia 2026", c:"Empresas", cats:["empresa","kako"]},
   {src:"img/galeria/glitter-room.jpg", t:"Glitter Room by Mel", c:"Glitter Room", cats:["glitter"]},
-  {src:"img/galeria/moova-cumple-2.jpg", t:"Cumpleaños en MOOVA", c:"Fiesta", cats:["moova","cumple"]},
-  {src:"img/galeria/stitch-kako.jpg", t:"KaKo con Stitch", c:"Monos cabezones", cats:["monos"]},
+  {src:"img/galeria/sm-matrimonio-celebracion.jpg", t:"Celebración con los invitados", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-kako-grupo-selfie.jpg", t:"Selfie con el grupo", c:"Con KaKo", cats:["kako"]},
+  {src:"img/galeria/sm-empresa-colaboradores.jpg", t:"Fiesta de colaboradores", c:"Empresas", cats:["empresa"]},
+  {src:"img/galeria/sm-cumple-grupo.jpg", t:"Cumpleaños con amigas", c:"Cumpleaños", cats:["cumple"]},
+  {src:"img/galeria/sm-matrimonio-novios.jpg", t:"Los novios", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-evento-grupo-grande.jpg", t:"Celebración de 15 años", c:"15 años", cats:["quince"]},
+  {src:"img/galeria/stitch-kako.jpg", t:"KaKo con Stitch", c:"Monos cabezones", cats:["monos","kako"]},
+  {src:"img/galeria/sm-matrimonio-invitadas.jpg", t:"Invitadas celebrando", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-empresa-equipo.jpg", t:"Equipo corporativo", c:"Empresas", cats:["empresa"]},
+  {src:"img/galeria/moova-cumple-2.jpg", t:"Cumpleaños en MOOVA", c:"Cumpleaños", cats:["moova","cumple"]},
+  {src:"img/galeria/sm-kako-animando.jpg", t:"KaKo animando", c:"Con KaKo", cats:["kako","empresa"]},
+  {src:"img/galeria/sm-matrimonio-baile.jpg", t:"Baile en la fiesta", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-quince-amigas.jpg", t:"Amigas de la festejada", c:"15 años", cats:["quince"]},
   {src:"img/galeria/moova-badbunny-2.jpg", t:"Bad Bunny bailando con todos", c:"Fiesta en MOOVA", cats:["moova","monos"]},
+  {src:"img/galeria/sm-kako-selfie-matrimonio.jpg", t:"Selfie en el matrimonio", c:"Matrimonio", cats:["matri","kako"]},
+  {src:"img/galeria/sm-empresa-grupo-jardin.jpg", t:"Equipo en el jardín", c:"Empresas", cats:["empresa"]},
+  {src:"img/galeria/sm-matrimonio-novio-amigos.jpg", t:"El novio y sus amigos", c:"Matrimonio", cats:["matri"]},
   {src:"img/galeria/badbunny-1.jpg", t:"Bad Bunny cabezón", c:"Monos cabezones", cats:["monos"]},
+  {src:"img/galeria/sm-kako-invitados.jpg", t:"KaKo con los invitados", c:"Con KaKo", cats:["kako"]},
+  {src:"img/galeria/sm-matrimonio-novios-2.jpg", t:"Torta de los novios", c:"Matrimonio", cats:["matri"]},
+  {src:"img/galeria/sm-kako-corporativo.jpg", t:"KaKo en evento de empresa", c:"Empresas", cats:["empresa","kako"]},
   {src:"img/galeria/stitch-1.jpg", t:"Foto con Stitch", c:"Monos cabezones", cats:["monos"]}
 ];
 let gcat = "todos";
